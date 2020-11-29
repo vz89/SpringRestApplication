@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Table(name = "developer")
+@NamedEntityGraph(name = "account_skills_entity_graph", attributeNodes = {@NamedAttributeNode("account"), @NamedAttributeNode("skills")})
 public class Developer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
