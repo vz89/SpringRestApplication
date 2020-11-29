@@ -28,7 +28,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public boolean updateSkill(Long id, Skill skill) {
+    public boolean update(Long id, Skill skill) {
         if (skillRepo.findById(id).orElse(null) != null) {
             skill.setId(id);
             skillRepo.save(skill);

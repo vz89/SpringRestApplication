@@ -11,7 +11,7 @@ public interface SkillService {
 
     void save(Skill skill);
 
-    boolean updateSkill(Long id, Skill skill);
+    boolean update(Long id, Skill skill);
 
     void delete(Skill skill);
 

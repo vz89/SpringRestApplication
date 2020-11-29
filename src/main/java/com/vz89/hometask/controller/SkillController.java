@@ -39,7 +39,7 @@ public class SkillController {
 
     @PutMapping("/skills/{id}")
     public ResponseEntity<?> updateSkill(@PathVariable("id") Long id, @RequestBody Skill skill) {
-        boolean updated = skillService.updateSkill(id, skill);
+        boolean updated = skillService.update(id, skill);
         return (updated) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
