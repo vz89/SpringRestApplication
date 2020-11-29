@@ -43,7 +43,7 @@ public class DeveloperController {
     }
 
     @DeleteMapping("/developers/{id}")
-    public ResponseEntity<?> deleteSkill(@PathVariable("id") Developer developer) {
+    public ResponseEntity<?> deleteDeveloper(@PathVariable("id") Developer developer) {
         developerService.delete(developer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
