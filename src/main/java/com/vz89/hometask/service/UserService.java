@@ -14,4 +14,8 @@ public interface UserService {
     boolean activate(User user, Integer code);
 
     void getNewActivationCode(User user);
+
+    boolean update(Long id, User user);
+
+    void delete(User user);
 }

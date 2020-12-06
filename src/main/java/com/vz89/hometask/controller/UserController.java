@@ -41,14 +41,24 @@ public class UserController {
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>("code is not active", HttpStatus.NOT_FOUND);
     }
+
     @GetMapping("/users/{id}/getActivationCode")
     public ResponseEntity<?> getActivationCode(@PathVariable("id") User user) {
         userService.getNewActivationCode(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUserPassword(@PathVariable("id") Long id, @RequestBody User user) {
+        boolean updated = userService.update(id, user);
+        return (updated) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
-
+    @DeleteMapping("/skills/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") User user) {
+        userService.delete(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }

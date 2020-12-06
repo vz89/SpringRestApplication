@@ -62,6 +62,23 @@ public class UserServiceImpl implements UserService {
         activationCodeRepo.save(activationCode);
     }
 
+    @Override
+    public boolean update(Long id, User user) {
+        User userUpdated = userRepo.findById(id).orElse(null);
+        if (userUpdated != null) {
+            userUpdated.setPassword(user.getPassword());
+            userUpdated.setLastPasswordChangeDate(LocalDate.now());
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public void delete(User user) {
+        user.setStatus(Status.DELETED);
+        user.setUpdated(LocalDate.now());
+    }
+
+
     private LocalDateTime getExpirationDate() {
         return LocalDateTime.now().plusHours(VALIDITY_HOURS);
     }
