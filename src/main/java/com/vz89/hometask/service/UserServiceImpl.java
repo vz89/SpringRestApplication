@@ -3,6 +3,7 @@ package com.vz89.hometask.service;
 import com.vz89.hometask.model.ActivationCode;
 import com.vz89.hometask.model.Status;
 import com.vz89.hometask.model.User;
+import com.vz89.hometask.repo.ActivationCodeRepo;
 import com.vz89.hometask.repo.UserRepo;
 import com.vz89.hometask.service.smsService.SmsActivationService;
 import com.vz89.hometask.service.smsService.SmsUtils;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private static final int VALIDITY_HOURS = 2;
     private final UserRepo userRepo;
     private final SmsActivationService smsActivationService;
+    private final ActivationCodeRepo activationCodeRepo;
 
     @Override
     public List<User> getUsers() {
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService {
         int code = SmsUtils.generateCode();
         smsActivationService.SendSms(user.getPhoneNumber(), code);
 
-        ActivationCode activationCode = new ActivationCode(code, LocalDateTime.now().plusHours(VALIDITY_HOURS));
+        ActivationCode activationCode = new ActivationCode(code, getExpirationDate());
         user.setActivationCode(activationCode);
         activationCode.setUser(user);
         userRepo.save(user);
@@ -52,10 +54,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public void getNewActivationCode(User user) {
+        ActivationCode activationCode = activationCodeRepo.findByUserId(user.getId());
         int code = SmsUtils.generateCode();
         smsActivationService.SendSms(user.getPhoneNumber(), code);
-        user.getActivationCode().setCode(code);
-        user.getActivationCode().setExpirationDate(LocalDateTime.now().plusHours(VALIDITY_HOURS));
-        userRepo.save(user);
+        activationCode.setCode(code);
+        activationCode.setExpirationDate(getExpirationDate());
+        activationCodeRepo.save(activationCode);
+    }
+
+    private LocalDateTime getExpirationDate() {
+        return LocalDateTime.now().plusHours(VALIDITY_HOURS);
     }
 }
