@@ -41,9 +41,9 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
-    public boolean activate(User user, String code) {
+    public boolean activate(User user, Integer code) {
         ActivationCode activationCode = user.getActivationCode();
-        if (activationCode.getCode() == Integer.parseInt(code) && LocalDateTime.now().isBefore(activationCode.getExpirationDate())) {
+        if (activationCode.getCode().equals(code) && LocalDateTime.now().isBefore(activationCode.getExpirationDate())) {
             user.setStatus(Status.ACTIVE);
             userRepo.save(user);
             return true;
@@ -51,13 +51,11 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public void newActivationCode(User user) {
+    public void getNewActivationCode(User user) {
         int code = SmsUtils.generateCode();
-        ActivationCode activationCode = new ActivationCode(code, LocalDateTime.now().plusHours(VALIDITY_HOURS));
-        user.setActivationCode(activationCode);
-        activationCode.setUser(user);
+        smsActivationService.SendSms(user.getPhoneNumber(), code);
+        user.getActivationCode().setCode(code);
+        user.getActivationCode().setExpirationDate(LocalDateTime.now().plusHours(VALIDITY_HOURS));
         userRepo.save(user);
     }
-
-
 }

@@ -15,6 +15,6 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/spring-app?serverTimezone=Europe/Moscow&useSSL=false
 twilio:
-  account-sid: ACaf1b556ac9d61456464cb6d42174efd5
-  auth-token: eb1653174e4fb8ce65a450d37c94a656
+  account-sid: ${TWILIO_ACCOUNT_SID}
+  auth-token: ${TWILIO_AUTH_TOKEN}
   phone-number: +12693715337

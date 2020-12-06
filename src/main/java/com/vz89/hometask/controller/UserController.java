@@ -33,11 +33,19 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User user) {
         userService.create(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
 
-
-
+    @PostMapping("/users/{id}/activate")
+    public ResponseEntity<?> activateUser(@PathVariable("id") User user, @RequestParam Integer code) {
+        return userService.activate(user, code)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>("code is not active", HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/users/{id}/getActivationCode")
+    public ResponseEntity<?> getActivationCode(@PathVariable("id") User user) {
+        userService.getNewActivationCode(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }
