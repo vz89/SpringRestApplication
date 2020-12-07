@@ -54,7 +54,7 @@ public class UserController {
         return (updated) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/skills/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") User user) {
         userService.delete(user);
         return new ResponseEntity<>(HttpStatus.OK);

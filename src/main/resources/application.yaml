@@ -18,3 +18,8 @@ twilio:
   account-sid: ${TWILIO_ACCOUNT_SID}
   auth-token: ${TWILIO_AUTH_TOKEN}
   phone-number: +12693715337
+
+jwt:
+  token:
+    secret: jwtsecret
+    expired: 3600000

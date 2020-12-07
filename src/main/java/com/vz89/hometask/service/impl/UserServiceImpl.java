@@ -1,17 +1,21 @@
-package com.vz89.hometask.service;
+package com.vz89.hometask.service.impl;
 
 import com.vz89.hometask.model.ActivationCode;
+import com.vz89.hometask.model.Role;
 import com.vz89.hometask.model.Status;
 import com.vz89.hometask.model.User;
 import com.vz89.hometask.repo.ActivationCodeRepo;
 import com.vz89.hometask.repo.UserRepo;
+import com.vz89.hometask.service.UserService;
 import com.vz89.hometask.service.smsService.SmsActivationService;
 import com.vz89.hometask.service.smsService.SmsUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final SmsActivationService smsActivationService;
     private final ActivationCodeRepo activationCodeRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getUsers() {
@@ -33,6 +38,8 @@ public class UserServiceImpl implements UserService {
         user.setLastPasswordChangeDate(LocalDate.now());
         user.setStatus(Status.APPROVAL_REQUIRED);
         user.setUpdated(LocalDate.now());
+        user.setRoles(Collections.singleton(Role.USER));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         int code = SmsUtils.generateCode();
         smsActivationService.SendSms(user.getPhoneNumber(), code);
@@ -78,6 +85,10 @@ public class UserServiceImpl implements UserService {
         user.setUpdated(LocalDate.now());
     }
 
+    @Override
+    public User findByUserName(String username) {
+        return userRepo.findByUsername(username);
+    }
 
     private LocalDateTime getExpirationDate() {
         return LocalDateTime.now().plusHours(VALIDITY_HOURS);

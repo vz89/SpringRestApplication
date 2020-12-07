@@ -1,7 +1,8 @@
-package com.vz89.hometask.service;
+package com.vz89.hometask.service.impl;
 
 import com.vz89.hometask.model.Account;
 import com.vz89.hometask.repo.AccountRepo;
+import com.vz89.hometask.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

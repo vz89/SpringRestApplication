@@ -1,7 +1,8 @@
-package com.vz89.hometask.service;
+package com.vz89.hometask.service.impl;
 
 import com.vz89.hometask.model.Developer;
 import com.vz89.hometask.repo.DeveloperRepo;
+import com.vz89.hometask.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
