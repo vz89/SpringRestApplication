@@ -1,5 +1,6 @@
 package com.vz89.hometask.controller;
 
+import com.vz89.hometask.dto.UserDTO;
 import com.vz89.hometask.model.User;
 import com.vz89.hometask.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers() {
-        List<User> users = userService.getUsers();
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        List<UserDTO> users = userService.getUsers();
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

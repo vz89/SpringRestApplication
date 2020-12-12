@@ -1,5 +1,6 @@
 package com.vz89.hometask.service.impl;
 
+import com.vz89.hometask.dto.UserDTO;
 import com.vz89.hometask.model.ActivationCode;
 import com.vz89.hometask.model.Role;
 import com.vz89.hometask.model.Status;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +30,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public List<User> getUsers() {
-        return userRepo.findAll();
+    public List<UserDTO> getUsers() {
+       return userRepo.findAll().stream().map(UserDTO::toDTO).collect(Collectors.toList());
     }
 
     @Override
