@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getUsers() {
-       return userRepo.findAll().stream().map(UserDTO::toDTO).collect(Collectors.toList());
+        return userRepo.findAll().stream().map(UserDTO::toDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -90,6 +90,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUserName(String username) {
         return userRepo.findByUsername(username);
+    }
+
+    @Override
+    public UserDTO findById(Long id) {
+        User user = userRepo.findById(id).orElse(null);
+        return UserDTO.toDTO(user);
     }
 
     private LocalDateTime getExpirationDate() {
