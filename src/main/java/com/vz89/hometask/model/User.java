@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Table(name = "user")
+@NamedEntityGraph(name = "activation_code_roles_entity_graph", attributeNodes = {@NamedAttributeNode("activationCode"), @NamedAttributeNode("roles")})
 public class User {
 
     @Id
@@ -44,7 +45,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private ActivationCode activationCode;
 }
