@@ -22,6 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MODERATOR = "MODERATOR";
     private static final String REGISTER_USER_ENDPOINT = "/users/**";
+    private static final String LOGIN_ENDPOINT = "/auth/login/**";
+
 
 
     @Bean

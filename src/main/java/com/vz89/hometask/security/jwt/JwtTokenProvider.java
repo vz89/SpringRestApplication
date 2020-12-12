@@ -5,33 +5,31 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class JwtTokenProvider {
 
+    private final String secret;
+    private final Long validityInMilliseconds;
     private final UserDetailsService userDetailsService;
 
-    @Value("${jwt.token.secret}")
-    private String secret;
-    @Value("${jwt.token.expired}")
-    private Long validityInMilliSeconds;
-
-
+    public JwtTokenProvider(@Value("${jwt.token.secret}") String secret, @Value("${jwt.token.expired}") Long validityInMilliseconds, UserDetailsService userDetailsService) {
+        this.secret = Base64.getEncoder().encodeToString(secret.getBytes());
+        this.validityInMilliseconds = validityInMilliseconds;
+        this.userDetailsService = userDetailsService;
+    }
 
 
     public String createToken(String username, Set<Role> roles) {
@@ -39,7 +37,7 @@ public class JwtTokenProvider {
         claims.put("roles", getRoleNames(roles));
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliSeconds);
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
 
 
         return Jwts.builder()

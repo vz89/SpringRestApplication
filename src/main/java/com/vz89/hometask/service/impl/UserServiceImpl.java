@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setLastPasswordChangeDate(LocalDate.now());
         user.setStatus(Status.APPROVAL_REQUIRED);
         user.setUpdated(LocalDate.now());
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         int code = SmsUtils.generateCode();

@@ -1,7 +1,6 @@
 package com.vz89.hometask.security;
 
 import com.vz89.hometask.model.User;
-import com.vz89.hometask.security.jwt.JwtUser;
 import com.vz89.hometask.security.jwt.JwtUserFactory;
 import com.vz89.hometask.service.UserService;
 import lombok.RequiredArgsConstructor;
