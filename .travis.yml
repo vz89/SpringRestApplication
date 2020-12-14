@@ -1,7 +1,8 @@
 language: java
 env:
-  - TWILIO_ACCOUNT_SID=123
-  - TWILIO_AUTH_TOKEN=123
+  global:
+    - TWILIO_ACCOUNT_SID=123
+    - TWILIO_AUTH_TOKEN=123
 services:
   - mysql
 sudo: true
