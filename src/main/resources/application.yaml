@@ -23,3 +23,5 @@ jwt:
   token:
     secret: jwtsecret
     expired: 3600000
+server:
+  port: ${PORT:8080}
