@@ -1,9 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_app?serverTimezone=Europe/Moscow&useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://b7a066f347e1ba:7d5098bd@us-cdbr-east-02.cleardb.com/heroku_23670cb2607b5f9?reconnect=true
+    username: b7a066f347e1ba
+    password: 7d5098bd
+    hikari:
+      maximum-pool-size: 1
+    tomcat:
+      max-active: 2
+      initial-size: 1
   jpa:
     generate-ddl: false
     hibernate:
@@ -11,9 +16,10 @@ spring:
     show-sql: true
   liquibase:
     change-log: classpath:liquibase/db.changelog-master.xml
-    user: root
-    password: root
-    url: jdbc:mysql://localhost:3306/spring_app?serverTimezone=Europe/Moscow&useSSL=false
+    user: b7a066f347e1ba
+    password: 7d5098bd
+    url: jdbc:mysql://b7a066f347e1ba:7d5098bd@us-cdbr-east-02.cleardb.com/heroku_23670cb2607b5f9?reconnect=true
+
 twilio:
   account-sid: ${TWILIO_ACCOUNT_SID}
   auth-token: ${TWILIO_AUTH_TOKEN}
