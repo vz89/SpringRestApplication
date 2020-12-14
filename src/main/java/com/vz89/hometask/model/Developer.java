@@ -1,6 +1,7 @@
 package com.vz89.hometask.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Table(name = "developer")
+@AllArgsConstructor
 @NamedEntityGraph(name = "account_skills_entity_graph", attributeNodes = {@NamedAttributeNode("account"), @NamedAttributeNode("skills")})
 public class Developer {
     @Id

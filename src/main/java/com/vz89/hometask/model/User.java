@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Table(name = "user")
-@NamedEntityGraph(name = "activation_code_roles_entity_graph", attributeNodes = {@NamedAttributeNode("activationCode"), @NamedAttributeNode("roles")})
+@NamedEntityGraph(name = "roles_entity_graph", attributeNodes = {@NamedAttributeNode("roles")})
 public class User {
 
     @Id
@@ -40,12 +40,20 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private ActivationCode activationCode;
 }

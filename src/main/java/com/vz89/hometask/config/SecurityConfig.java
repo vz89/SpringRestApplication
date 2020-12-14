@@ -22,15 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ROLE_MODERATOR = "MODERATOR";
     private static final String REGISTER_USER_ENDPOINT = "/users/**";
 
-
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -42,9 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, REGISTER_USER_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.GET, USER_ROLE_ENDPOINT).authenticated()
                 .antMatchers(USER_ROLE_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MODERATOR)
-                .antMatchers(HttpMethod.GET, ADMIN_ROLE_ENDPOINT).hasRole(ROLE_MODERATOR)
+                .antMatchers(HttpMethod.GET, ADMIN_ROLE_ENDPOINT).hasAnyRole(ROLE_MODERATOR, ROLE_ADMIN)
                 .antMatchers(ADMIN_ROLE_ENDPOINT).hasRole(ROLE_ADMIN)
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

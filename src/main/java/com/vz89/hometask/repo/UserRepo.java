@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
-    @EntityGraph("activation_code_roles_entity_graph")
+    @EntityGraph("roles_entity_graph")
     User findByUsername(String name);
 
-    @EntityGraph("activation_code_roles_entity_graph")
+    @EntityGraph("roles_entity_graph")
     List<User> findAll();
 
-    @EntityGraph("activation_code_roles_entity_graph")
+    @EntityGraph("roles_entity_graph")
     Optional<User> findById(Long id);
 }

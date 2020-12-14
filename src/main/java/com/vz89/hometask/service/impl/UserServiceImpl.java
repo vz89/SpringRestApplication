@@ -47,13 +47,12 @@ public class UserServiceImpl implements UserService {
         smsActivationService.SendSms(user.getPhoneNumber(), code);
 
         ActivationCode activationCode = new ActivationCode(code, getExpirationDate());
-        user.setActivationCode(activationCode);
         activationCode.setUser(user);
         userRepo.save(user);
     }
 
     public boolean activate(User user, Integer code) {
-        ActivationCode activationCode = user.getActivationCode();
+        ActivationCode activationCode = activationCodeRepo.findByUserId(user.getId());
         if (activationCode.getCode().equals(code) && LocalDateTime.now().isBefore(activationCode.getExpirationDate())) {
             user.setStatus(Status.ACTIVE);
             userRepo.save(user);
