@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring-app?serverTimezone=Europe/Moscow&useSSL=false
+    url: jdbc:mysql://localhost:3306/spring_app?serverTimezone=Europe/Moscow&useSSL=false
     username: root
     password: root
   jpa:
@@ -13,7 +13,7 @@ spring:
     change-log: classpath:liquibase/db.changelog-master.xml
     user: root
     password: root
-    url: jdbc:mysql://localhost:3306/spring-app?serverTimezone=Europe/Moscow&useSSL=false
+    url: jdbc:mysql://localhost:3306/spring_app?serverTimezone=Europe/Moscow&useSSL=false
 twilio:
   account-sid: ${TWILIO_ACCOUNT_SID}
   auth-token: ${TWILIO_AUTH_TOKEN}
