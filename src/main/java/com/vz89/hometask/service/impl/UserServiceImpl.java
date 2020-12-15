@@ -42,13 +42,13 @@ public class UserServiceImpl implements UserService {
         user.setUpdated(LocalDate.now());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         int code = SmsUtils.generateCode();
         smsActivationService.SendSms(user.getPhoneNumber(), code);
 
         ActivationCode activationCode = new ActivationCode(code, getExpirationDate());
         activationCode.setUser(user);
         userRepo.save(user);
+        activationCodeRepo.save(activationCode);
     }
 
     public boolean activate(User user, Integer code) {
