@@ -76,6 +76,7 @@ public class UserServiceImpl implements UserService {
         if (userUpdated != null) {
             userUpdated.setPassword(user.getPassword());
             userUpdated.setLastPasswordChangeDate(LocalDate.now());
+            userRepo.save(userUpdated);
             return true;
         } else return false;
     }
@@ -95,6 +96,22 @@ public class UserServiceImpl implements UserService {
     public UserDTO findById(Long id) {
         User user = userRepo.findById(id).orElse(null);
         return UserDTO.toDTO(user);
+    }
+
+    @Override
+    public boolean updateStatusOrRole(Long id, User user) {
+        User userUpdated = userRepo.findById(id).orElse(null);
+        if (user.getStatus() != null) {
+            assert userUpdated != null;
+            userUpdated.setStatus(user.getStatus());
+        }
+
+        if (user.getRoles() != null) {
+            assert userUpdated != null;
+            userUpdated.setRoles(user.getRoles());
+        }
+        userRepo.save(userUpdated);
+        return false;
     }
 
     private LocalDateTime getExpirationDate() {

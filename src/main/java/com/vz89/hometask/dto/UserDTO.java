@@ -17,9 +17,9 @@ public class UserDTO {
     private LocalDate lastPasswordChangeDate;
     private Status status;
     private String phoneNumber;
-    private Set<Role> roleSet;
+    private Set<Role> roles;
 
-    public UserDTO(Long id, String username, LocalDate created, LocalDate updated, LocalDate lastPasswordChangeDate, Status status, String phoneNumber, Set<Role> roleSet) {
+    public UserDTO(Long id, String username, LocalDate created, LocalDate updated, LocalDate lastPasswordChangeDate, Status status, String phoneNumber, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.created = created;
@@ -27,7 +27,7 @@ public class UserDTO {
         this.lastPasswordChangeDate = lastPasswordChangeDate;
         this.status = status;
         this.phoneNumber = phoneNumber;
-        this.roleSet = roleSet;
+        this.roles = roles;
     }
 
     public static UserDTO toDTO(User user) {

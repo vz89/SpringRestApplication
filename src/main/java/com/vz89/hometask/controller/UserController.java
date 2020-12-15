@@ -6,6 +6,7 @@ import com.vz89.hometask.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,6 +54,12 @@ public class UserController {
     @PutMapping("/users/{id}")
     public ResponseEntity<?> updateUserPassword(@PathVariable("id") Long id, @RequestBody User user) {
         boolean updated = userService.update(id, user);
+        return (updated) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<?> updateUserStatusOrRole(@PathVariable("id") Long id, @RequestBody User user) {
+        boolean updated = userService.updateStatusOrRole(id, user);
         return (updated) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

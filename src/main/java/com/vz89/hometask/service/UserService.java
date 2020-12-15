@@ -23,4 +23,6 @@ public interface UserService {
     User findByUserName(String username);
 
     UserDTO findById(Long id);
+
+    boolean updateStatusOrRole(Long id, User user);
 }
