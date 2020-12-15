@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/spring-app?serverTimezone=Europe/Moscow&useSSL=false}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/spring_app?serverTimezone=Europe/Moscow&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root}
     hikari:
@@ -18,7 +18,7 @@ spring:
     change-log: classpath:liquibase/db.changelog-master.xml
     user: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root}
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/spring-app?serverTimezone=Europe/Moscow&useSSL=false}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/spring_app?serverTimezone=Europe/Moscow&useSSL=false}
 
 twilio:
   account-sid: ${TWILIO_ACCOUNT_SID}
